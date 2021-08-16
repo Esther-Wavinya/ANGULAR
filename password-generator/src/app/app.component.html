@@ -35,13 +35,17 @@
         </div>
       </div>
 
-      <button [disabled]="
+      <button
+        [disabled]="
           !(length && (includeLetters || includeSymbols || includeNumbers))
-        " (click)="onButtonClick()" class="button is-link is-fullwidth">
+        "
+        (click)="onButtonClick()"
+        class="button is-link is-fullwidth"
+      >
         Generate!
       </button>
 
-      <div class="box">
+      <div class="box" *ngIf="password">
         <label>Your Password</label>
         <input class="input" [value]="password" />
       </div>
