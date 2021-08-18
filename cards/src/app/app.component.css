@@ -1,0 +1,6 @@
+/* selecting app-root and styling app component*/
+:host {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
