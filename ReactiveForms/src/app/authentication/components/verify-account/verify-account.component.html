@@ -1,0 +1,77 @@
+<div class="app-body">
+  <main class="main d-flex align-items-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 mx-auto">
+          <div class="card mx-4">
+            <div class="card-body p-4">
+              <small class="text-success">{{ errorMessage }}</small>
+              <form [formGroup]="accountForm" *ngIf="!verifyAccount">
+                <h1>Verify Account</h1>
+                <p class="text-muted">Fill in the email you registered with</p>
+
+                <div class="input-container mb-3">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"
+                        ><i class="icon-envelope"></i
+                      ></span>
+                    </div>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Email"
+                      formControlName="email"
+                    /><br />
+                  </div>
+                  <div *ngIf="(email.invalid && email.touched) || email.dirty">
+                    <small *ngIf="email.errors?.required" class="text-danger"
+                      >Email is required</small
+                    >
+                    <small *ngIf="email.errors?.pattern" class="text-danger"
+                      >Please provide a valid email address</small
+                    >
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  [disabled]="accountForm.invalid"
+                  (click)="submitDetails(accountForm)"
+                >
+                  Verify your account
+                </button>
+              </form>
+              <h4 class="card-text" *ngIf="!errorMessage && verifyAccount">
+                Check your email for a verification link
+              </h4>
+            </div>
+            <div class="card-footer p-4" *ngIf="verifyAccount">
+              <div class="row">
+                <div class="col-6">
+                  <button
+                    [routerLink]="['/auth/login']"
+                    type="button"
+                    class="btn btn-primary"
+                  >
+                    Login Here
+                  </button>
+                </div>
+                <div class="col-6 text-right">
+                  <button
+                    [routerLink]="['/auth/register']"
+                    type="button"
+                    class="btn btn-primary"
+                  >
+                    Register
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

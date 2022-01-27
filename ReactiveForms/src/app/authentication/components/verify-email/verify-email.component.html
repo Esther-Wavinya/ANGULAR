@@ -1,0 +1,52 @@
+<div class="app-body">
+  <main class="main d-flex align-items-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 mx-auto">
+          <div class="card mx-4">
+            <div class="card-body p-4">
+              <div *ngIf="!isVerified">
+                <p class="text-danger">
+                  {{ errorMessage }}
+                </p>
+                <div class="lds-ripple text-primary" *ngIf="!isLoaded">
+                  <div></div>
+                  <div></div>
+                </div>
+              </div>
+
+              <p *ngIf="isVerified" class="card-text text-success text-center">
+                {{ successMessage }}
+              </p>
+            </div>
+            <div
+              class="card-footer mx-auto bg-white border-none"
+              [hidden]="!isVerified"
+            >
+              <div class="row mx-auto text-center text-sm-center">
+                <div class="col-auto">
+                  <a
+                    (click)="openApp()"
+                    type="button"
+                    class="btn btn-primary text-white mb-2 text-center"
+                  >
+                    Login via app
+                  </a>
+                </div>
+                <div class="col-auto text-center text-sm-center">
+                  <a
+                    [routerLink]="['/auth/login']"
+                    type="button"
+                    class="btn btn-primary mb-2 text-center"
+                  >
+                    Login via web
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

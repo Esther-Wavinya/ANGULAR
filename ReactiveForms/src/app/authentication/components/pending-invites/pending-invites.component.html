@@ -1,0 +1,66 @@
+<div class="app-body">
+  <main class="main d-flex align-items-center">
+    <div class="container">
+      <div class="row">
+
+        <div class="col-md-9 col-sm-12 mx-auto">
+          <div class="card">
+            <div class="card-header">
+              <div class="row d-flex justify-content-between">
+                <div class="pl-2">
+                  <p class="sibasi-heading1">Pending Invitations</p>
+                  <p class="text-success">{{ errorMessage }}</p>
+                </div>
+                <button
+                  class="btn add-button float-right"
+                  (click)="viewStore()"
+                >
+                  My stores
+                </button>
+              </div>
+            </div>
+            <div class="card-body p-4" *ngIf="isLoaded">Loading...</div>
+            <div class="card-body p-4" *ngIf="!isLoaded">
+              <table class="table text-center table-borderless">
+                <tbody>
+                  <tr *ngFor="let invite of invites">
+                    <td>
+                      <span
+                        ><i class="fa fa-group fa-2x" aria-hidden="true"></i
+                      ></span>
+                    </td>
+                    <td>
+                      <p>{{ invite?.organization?.name }}</p>
+                      <span
+                        ><small>
+                          <strong>{{ invite?.invitedBy?.firstname }}</strong>
+                          invited you</small
+                        ></span
+                      >
+                    </td>
+                    <td>
+                      <div class="float-right">
+                        <button
+                          class="btn btn-sm btn-primary p-1"
+                          (click)="acceptInvite(invite)"
+                        >
+                          Accept
+                        </button>
+                        <button
+                          class="btn btn-sm btn-secondary p-1"
+                          (click)="rejectInvite(invite)"
+                        >
+                          Reject
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

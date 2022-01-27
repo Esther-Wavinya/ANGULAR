@@ -1,0 +1,222 @@
+<div class="app-body">
+  <main class="main d-flex align-items-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 mx-auto">
+          <div class="card mx-4">
+            <div class="card-body p-4">
+              <div
+                class="form-feedback"
+                *ngIf="userMessage"
+                aria-live="assertive"
+              >
+                <div class="form-errors status submission-error">
+                  <small
+                    class="message-title"
+                    [ngClass]="
+                      userMessage?.type === userMessageType.SUCCESS
+                        ? 'text-success'
+                        : 'text-danger'
+                    "
+                  >
+                    {{ userMessage?.message }}
+                  </small>
+                </div>
+              </div>
+              <form [formGroup]="registerForm">
+                <h1>Create New Account</h1>
+                <p class="text-muted">
+                  Register a new account using this form.
+                </p>
+
+                <div class="input-container mb-3">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"
+                        ><i class="icon-user"></i
+                      ></span>
+                    </div>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="First  Name e.g Jane"
+                      formControlName="firstname"
+                    /><br />
+                  </div>
+                  <div
+                    *ngIf="
+                      (firstname.invalid && firstname.touched) ||
+                      firstname.dirty
+                    "
+                  >
+                    <small
+                      *ngIf="firstname.errors?.required"
+                      class="text-danger"
+                      >First Name is required</small
+                    >
+                  </div>
+                </div>
+                <div class="input-container mb-3">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"
+                        ><i class="icon-people"></i
+                      ></span>
+                    </div>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Last Name e.g Scholar"
+                      formControlName="lastname"
+                    /><br />
+                  </div>
+                  <div
+                    *ngIf="
+                      (lastname.invalid && lastname.touched) || lastname.dirty
+                    "
+                  >
+                    <small *ngIf="lastname.errors?.required" class="text-danger"
+                      >Last Name is required</small
+                    >
+                  </div>
+                </div>
+                <div class="input-container mb-3">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"
+                        ><i class="icon-people"></i
+                      ></span>
+                    </div>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Desired username eg:  johnDoe"
+                      formControlName="username"
+                    /><br />
+                  </div>
+                </div>
+                <div class="input-container mb-3">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"
+                        ><i class="icon-envelope"></i
+                      ></span>
+                    </div>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Email"
+                      formControlName="email"
+                    /><br />
+                  </div>
+                  <div *ngIf="(email.invalid && email.touched) || email.dirty">
+                    <small *ngIf="email.errors?.required" class="text-danger"
+                      >Email is required</small
+                    >
+                    <small *ngIf="email.errors?.pattern" class="text-danger"
+                      >Please provide a valid email address</small
+                    >
+                  </div>
+                </div>
+                <div class="input-container mb-3">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"
+                        ><i class="icon-lock"></i
+                      ></span>
+                    </div>
+                    <input
+                      type="password"
+                      class="form-control"
+                      placeholder="Password"
+                      formControlName="password"
+                    />
+                  </div>
+                  <div
+                    *ngIf="
+                      (password.invalid && password.touched) || password.dirty
+                    "
+                  >
+                    <small *ngIf="password.errors?.required" class="text-danger"
+                      >Password is required</small
+                    >
+                    <small
+                      *ngIf="password.errors?.minlength"
+                      class="text-danger"
+                      >Password must be at least
+                      {{ passwordMinLength }} characters long</small
+                    >
+                    <small
+                      *ngIf="password.errors?.maxlength"
+                      class="text-danger"
+                      >Password is too long</small
+                    >
+                  </div>
+                </div>
+                <div class="input-container mb-4">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"
+                        ><i class="icon-lock"></i
+                      ></span>
+                    </div>
+                    <input
+                      type="password"
+                      class="form-control"
+                      placeholder="Repeat password"
+                      formControlName="passwordRepeat"
+                    />
+                  </div>
+                  <div
+                    *ngIf="
+                      (passwordRepeat.invalid && passwordRepeat.touched) ||
+                      passwordRepeat.dirty
+                    "
+                  >
+                    <small
+                      *ngIf="passwordRepeat.errors?.notEquivalent"
+                      class="text-danger"
+                      >The passwords do not match</small
+                    >
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  class="btn btn-primary w-100"
+                  [disabled]="!registerForm.valid"
+                  (click)="submitRegisterDetails()"
+                >
+                  Create Account
+                </button>
+              </form>
+            </div>
+            <div class="card-footer p-4">
+              <div class="row">
+                <div class="col-sm-12 col-md-6 d-flex">
+                  <p class="my-auto">Have an account?</p>
+
+                  <a
+                    [routerLink]="['/auth/login']"
+                    type="button"
+                    class="btn btn-link py-0 px-0 my-auto ml-1"
+                    >Login</a
+                  >
+                </div>
+                <div class="col-sm-12 col-md-6 text-right d-flex">
+                  <p class="my-auto">Forgot password?</p>
+
+                  <a
+                    [routerLink]="['/auth/forgotPassword']"
+                    type="button"
+                    class="btn btn-link py-0 px-0 my-auto ml-1"
+                    >Reset</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
